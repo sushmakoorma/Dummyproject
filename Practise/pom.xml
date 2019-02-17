@@ -26,12 +26,52 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
+<profiles>
+<profile>
+<id>PT1</id>
   <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-      <plugins>
+    <!--<pluginManagement> --> <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <plugins>
+	  <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-antrun-plugin</artifactId>
+		<version>1.8</version>
+		<executions>
+		<execution>
+			<id>id.clean</id>
+			<phase>compile</phase>
+		<goals>
+			<goal>run</goal>
+		</goals>
+		<configuration>
+			<tasks>
+				<echo> -----Running from ant plugin----</echo>
+			</tasks>
+		</configuration>
+		</execution>
+		</executions>
+	  </plugin>
+	 </plugins>
+	</build>
+	</profile>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
-        <plugin>
+<profile>
+<id>PT2</id>
+<build>
+<plugins>
+<plugin>
+		<groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+			<configuration>
+			<executable>git</executable>
+			<arguments>
+			<argument>--version</argument>
+			</arguments>
+			</configuration>
+</plugin>
+
+	<plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
         </plugin>
@@ -70,6 +110,8 @@
           <version>3.0.0</version>
         </plugin>
       </plugins>
-    </pluginManagement>
-  </build>
+	  </build>
+	  </profile>
+    <!--/pluginManagement-->
+	</profiles>
 </project>
